@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: University - ${ACTIVE_PROFILE:local}
+  profiles:
+    active: ${ACTIVE_PROFILE:local}
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.driver.PostgreSQLDialect
+  messages:
+    basename: i18n/message
