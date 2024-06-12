@@ -16,6 +16,6 @@ spring:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.driver.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   messages:
     basename: i18n/message
