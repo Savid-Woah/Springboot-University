@@ -27,7 +27,7 @@ jobs:
             sudo /home/ubuntu/update-app.sh
           else
             echo "springboot-university is not running, starting services with docker-compose..."
-            sudo /home/ubuntu/start.sh
+            sudo /home/ubuntu/start-dev.sh
           fi
 
       - name: Remove dangling images
