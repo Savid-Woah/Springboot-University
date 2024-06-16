@@ -1,5 +1,6 @@
 package springboot_university.course.api;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -9,7 +10,9 @@ import springboot_university.course.request.CourseRequest;
 import springboot_university.course.service.CourseService;
 
 import java.util.Map;
+import java.util.UUID;
 
+@Tag(name = "Course")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("university/api/v1/courses/")
@@ -23,6 +26,14 @@ public class CourseController {
             @PathVariable("page-size") Integer pageSize
     ) {
         return courseService.getAllCourses(pageNumber, pageSize);
+    }
+
+    @GetMapping(path = "compare-age-average/{course-id}/{university-id}")
+    public String CompareCourseAndUniversityAgeAverage(
+            @PathVariable("course-id") UUID courseId,
+            @PathVariable("university-id") UUID universityId
+    ) {
+        return courseService.compareCourseAndUniversityAgeAverage(courseId, universityId);
     }
 
     @PostMapping

@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,4 +23,7 @@ public class CourseRequest {
 
     @NotNull(message = "Field required")
     private Integer credits;
+
+    @NotNull(message = "Field required")
+    private UUID programId;
 }

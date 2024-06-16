@@ -1,12 +1,13 @@
 package springboot_university.course.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.commons.lang3.builder.HashCodeExclude;
 import springboot_university.course.request.CourseRequest;
+import springboot_university.program.model.Program;
+import springboot_university.student.model.Student;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -27,6 +28,22 @@ public class Course {
 
     @Column(name = "credits", nullable = false)
     private Integer credits;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "program_id", updatable = false, nullable = false)
+    private Program program;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "courses_x_students",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> students;
 
     public Course(CourseRequest courseRequest) {
         this.name = courseRequest.getName();
