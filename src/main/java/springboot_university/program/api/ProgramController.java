@@ -1,5 +1,6 @@
 package springboot_university.program.api;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -9,10 +10,12 @@ import springboot_university.program.request.ProgramRequest;
 import springboot_university.program.service.ProgramService;
 
 import java.util.Map;
+import java.util.UUID;
 
+@Tag(name = "Program")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("university/api/v1/programs")
+@RequestMapping("university/api/v1/programs/")
 public class ProgramController {
 
     private final ProgramService programService;
@@ -23,6 +26,14 @@ public class ProgramController {
             @PathVariable("page-size") Integer pageSize
     ) {
         return programService.getAllPrograms(pageNumber, pageSize);
+    }
+
+    @PostMapping(path = "compare-age-avg/{program-id}/{university-id}")
+    public String compareProgramAndUniversityAgeAverage(
+            @PathVariable("program-id") UUID programId,
+            @PathVariable("university-id") UUID universityId
+    ) {
+        return programService.compareProgramAndUniversityAgeAverage(programId, universityId);
     }
 
     @PostMapping
