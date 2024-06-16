@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import springboot_university.student.enums.Gender;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -15,8 +15,8 @@ public record StudentDTO(
         UUID studentId,
         String name,
         Integer age,
-        @JsonFormat(pattern = "dd/MM/yy", shape = JsonFormat.Shape.STRING, timezone = "america/bogota")
-        Date birthday,
+        @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING, timezone = "america/bogota")
+        LocalDate birthday,
         Gender gender,
         String code
 

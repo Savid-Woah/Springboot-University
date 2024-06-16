@@ -11,7 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import springboot_university.student.enums.Gender;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -29,10 +30,13 @@ public class StudentRequest {
     @NotNull(message = "Field required")
     private Integer age;
 
-    @JsonFormat(pattern = "dd/MM/yy", shape = JsonFormat.Shape.STRING, timezone = "america/bogota")
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING, timezone = "america/bogota")
     @NotNull(message = "Field required")
-    private Date birthday;
+    private LocalDate birthday;
 
     @NotBlank(message = "Field required")
     private String code;
+
+    @NotNull(message = "Field required")
+    private UUID universityId;
 }
