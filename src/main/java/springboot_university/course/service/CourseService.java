@@ -37,7 +37,6 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final ProgramRepository programRepository;
 
-
     public Page<CourseDTO> getAllCourses(Integer pageNumber, Integer pageSize) {
 
         return courseRepository.findAll(PageRequest.of(pageNumber, pageSize))

@@ -32,4 +32,3 @@ jobs:
 
       - name: Remove dangling images
         run: sudo docker image prune -f
-

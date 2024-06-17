@@ -35,8 +35,8 @@ public class SecurityConfig {
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
-    private final LogoutHandler logoutHandler;
     private final AuthEntryPoint authEntryPoint;
+    private final LogoutHandler logoutHandler;
 
     private static final String LOGOUT_URL = "/university/api/v1/auth/logout";
     private static final String[] PUBLIC_URLS = { "/university/api/v1/auth/**" };
