@@ -28,7 +28,7 @@ public class ProgramController {
         return programService.getAllPrograms(pageNumber, pageSize);
     }
 
-    @PostMapping(path = "compare-age-avg/{program-id}/{university-id}")
+    @PostMapping(path = "compare-age-average/{program-id}/{university-id}")
     public String compareProgramAndUniversityAgeAverage(
             @PathVariable("program-id") UUID programId,
             @PathVariable("university-id") UUID universityId

@@ -86,7 +86,7 @@ public class CourseServiceTest {
     }
 
     @Test
-    @DisplayName(value = "Should validate averages")
+    @DisplayName(value = "Should compare course and university age average")
     void shouldCompareCourseAndUniversityAgeAverage() {
 
         // given "an existing course id and university id"
@@ -115,7 +115,7 @@ public class CourseServiceTest {
                 .courses(new HashSet<>(Set.of(softwareEngineering)))
                 .build();
 
-        // and "student assign to course"
+        // and "student assigned to course"
         softwareEngineering.setStudents(new HashSet<>(Set.of(samuel)));
 
         // when "mocked behaviour"

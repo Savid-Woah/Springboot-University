@@ -2,6 +2,7 @@ package springboot_university.course.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -64,7 +65,8 @@ public class CourseControllerTest {
     }
 
     @Test
-    void getAllCourses() throws Exception {
+    @DisplayName(value = "Should get all courses")
+    void shouldGetAllCourses() throws Exception {
 
         Page<CourseDTO> page = new PageImpl<>(courseList);
         when(courseService.getAllCourses(any(Integer.class), any(Integer.class))).thenReturn(page);
@@ -74,22 +76,28 @@ public class CourseControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Should compare course and university age average")
     void shouldCompareCourseAndUniversityAgeAverage() throws Exception {
 
+        // given "the list of valid responses"
         String[] validResponses = {
                 UNIVERSITY_AVG_HIGHER_THAN_COURSE_AVG,
                 COURSE_AVG_HIGHER_THAN_UNIVERSITY_AVG,
                 COURSE_AVG_EQUAL_TO_UNIVERSITY_AVG
         };
 
+        // and "an expected response"
         String response = validResponses[new Random().nextInt(validResponses.length)];
 
+        // and "the path variables"
         UUID courseId = UUID.randomUUID();
         UUID universityId = UUID.randomUUID();
 
+        // when "mocked behaviour"
         when(courseService.compareCourseAndUniversityAgeAverage(courseId, universityId))
                 .thenReturn(response);
 
+        // and "endpoint hit" then "expect the following"
         mockMvc.perform(get("/university/api/v1/courses/compare-age-average/{course-id}/{university-id}",
                         courseId,
                         universityId))
@@ -98,7 +106,8 @@ public class CourseControllerTest {
     }
 
     @Test
-    void addCourse() throws Exception {
+    @DisplayName(value = "Should add course")
+    void shouldAddCourse() throws Exception {
 
         // given "a course request"
         CourseRequest courseRequest = CourseRequest

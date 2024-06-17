@@ -1,6 +1,7 @@
 package springboot_university.student.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -46,6 +47,7 @@ public class StudentControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
+    @DisplayName(value = "Should enroll user")
     void shouldEnrollUser() throws Exception {
 
         // given "a valid EnrollRequest object"

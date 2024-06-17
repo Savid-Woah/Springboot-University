@@ -2,6 +2,7 @@ package springboot_university.program.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -68,6 +69,7 @@ public class ProgramControllerTest {
         );
     }
     @Test
+    @DisplayName(value = "Should return program dto page")
     void shouldReturnProgramDTOPage() throws Exception {
 
         // given "page number and page size"
@@ -93,6 +95,7 @@ public class ProgramControllerTest {
     }
 
     @Test
+    @DisplayName(value = "Should add program")
     void shouldAddProgram() throws Exception {
 
         // given "a program request"

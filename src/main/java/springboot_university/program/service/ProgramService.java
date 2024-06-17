@@ -20,8 +20,7 @@ import springboot_university.university.repository.UniversityRepository;
 
 import java.util.*;
 
-import static springboot_university.exception.MsgCode.OOPS_ERROR;
-import static springboot_university.exception.MsgCode.UNIVERSITY_NOT_FOUND;
+import static springboot_university.exception.MsgCode.*;
 import static springboot_university.response.handler.ResponseHandler.generateResponse;
 import static springboot_university.response.message.ResponseMessage.*;
 
@@ -75,7 +74,7 @@ public class ProgramService {
     private Integer getProgramAgeAverage(UUID programId) {
 
         Program program = programRepository.findById(programId)
-                .orElseThrow(() -> new BackendException(OOPS_ERROR));
+                .orElseThrow(() -> new BackendException(PROGRAM_NOT_FOUND));
 
         List<Course> programCourses = program.getCourses();
 
@@ -91,12 +90,17 @@ public class ProgramService {
         }
     }
 
-    private String resolveResponseMessage(Integer universityStudentsAgeAverage, Integer courseStudentsAgeAverage) {
+    private String resolveResponseMessage(Integer universityStudentsAgeAverage, Integer programStudentsAgeAverage) {
 
-        if(universityStudentsAgeAverage > courseStudentsAgeAverage) {
-            return UNIVERSITY_AVG_HIGHER_THAN_COURSE_AVG;
+        System.out.println("Promedio de edad de la universidad: " + universityStudentsAgeAverage);
+        System.out.println("Promedio de edad en el programa: " + programStudentsAgeAverage);
+
+        if(universityStudentsAgeAverage > programStudentsAgeAverage) {
+            return UNIVERSITY_AVG_HIGHER_THAN_PROGRAM_AVG;
+        } else if (programStudentsAgeAverage > universityStudentsAgeAverage){
+            return PROGRAM_AVG_HIGHER_THAN_UNIVERSITY_AVG;
         } else{
-            return COURSE_AVG_HIGHER_THAN_UNIVERSITY_AVG;
+            return PROGRAM_AVG_EQUAL_TO_UNIVERSITY_AVG;
         }
     }
 }
