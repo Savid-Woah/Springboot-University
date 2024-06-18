@@ -136,14 +136,18 @@ para que no haya un conflicto de puertos.
     - código: 404
     - mensaje: 'user-not-found'
     - causa: No se encontró el usuario con el id especificado
-- PRODUCT_NOT_FOUND:
+- UNIVERSITY_NOT_FOUND:
     - código: 404
-    - mensaje: 'product-not-found'
-    - causa: No se encontró el producto con el id especificado
-- PERSISTENCE_EXCEPTION:
-    - código: 500
-    - mensaje: 'persistence-exception'
-    - causa: Error de interacción con la base de datos
+    - mensaje: 'university-not-found'
+    - causa: No se encontró la universidad con el id especificado
+- PROGRAM_NOT_FOUND:
+    - código: 404
+    - mensaje: 'program-not-found'
+    - causa: No se encontró el programa con el id especificado
+- NO_STUDENT_ENROLLED_IN_COURSE:
+    - código: 404
+    - mensaje: 'no-students-enrolled-in-course'
+    - causa: No se encontraron estudiantes para este curso
 
 ### Docker
 
