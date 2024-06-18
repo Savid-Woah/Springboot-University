@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import springboot_university.course.dto.CourseDTO;
 import springboot_university.course.request.CourseRequest;
 import springboot_university.course.service.CourseService;
+import springboot_university.security.annotation.WithRateLimitProtection;
 
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping(path = "{page-number}/{page-size}")
+    @WithRateLimitProtection
     public Page<CourseDTO> getAllCourses(
             @PathVariable("page-number") Integer pageNumber,
             @PathVariable("page-size") Integer pageSize
@@ -29,6 +31,7 @@ public class CourseController {
     }
 
     @GetMapping(path = "compare-age-average/{course-id}/{university-id}")
+    @WithRateLimitProtection
     public String CompareCourseAndUniversityAgeAverage(
             @PathVariable("course-id") UUID courseId,
             @PathVariable("university-id") UUID universityId
@@ -37,6 +40,7 @@ public class CourseController {
     }
 
     @PostMapping
+    @WithRateLimitProtection
     public Map<String, Object> addCourse(@Validated @RequestBody CourseRequest courseRequest) {
         return courseService.addCourse(courseRequest);
     }

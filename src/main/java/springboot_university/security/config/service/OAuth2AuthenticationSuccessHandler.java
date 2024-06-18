@@ -1,6 +1,5 @@
 package springboot_university.security.config.service;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import springboot_university.security.auth.service.CookieService;
 import springboot_university.security.auth.service.OAuth2Service;
 
 import java.io.IOException;
@@ -21,6 +21,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${FRONT_END_URL}")
     private String FRONT_END_URL;
     private final OAuth2Service oAuth2Service;
+    private final CookieService cookieService;
 
     @Override
     public void onAuthenticationSuccess(
@@ -29,11 +30,12 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
             HttpServletResponse response,
             Authentication authentication
 
-    ) throws IOException, ServletException {
+    ) throws IOException {
 
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
         DefaultOAuth2User oauth2User = (DefaultOAuth2User) oauthToken.getPrincipal();
         String jwt = oAuth2Service.getJwtFromOAuth2Flow(oauth2User);
-        response.sendRedirect(FRONT_END_URL+"?token="+jwt);
+        cookieService.addCookie(response, "jwt", jwt, -1);
+        response.sendRedirect(FRONT_END_URL+"/home");
     }
 }

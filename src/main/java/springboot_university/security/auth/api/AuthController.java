@@ -1,9 +1,11 @@
 package springboot_university.security.auth.api;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springboot_university.security.annotation.WithRateLimitProtection;
 import springboot_university.security.auth.request.LoginRequest;
 import springboot_university.security.auth.request.RegisterStudentRequest;
 import springboot_university.security.auth.request.RegisterUniversityRequest;
@@ -20,11 +22,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(path = "login")
-    public String login(@Validated @RequestBody LoginRequest loginRequest) {
-        return authService.login(loginRequest);
+    @WithRateLimitProtection
+    public String login(@Validated @RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
+        return authService.login(loginRequest, httpServletResponse);
     }
 
     @PostMapping(path = "register-university")
+    @WithRateLimitProtection
     public Map<String, Object> registerUniversity(
             @Validated @RequestBody RegisterUniversityRequest registerUniversityRequest
     ) {
@@ -32,6 +36,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "register-student")
+    @WithRateLimitProtection
     public Map<String, Object> registerStudent(
             @Validated @RequestBody RegisterStudentRequest registerStudentRequest
     ) {

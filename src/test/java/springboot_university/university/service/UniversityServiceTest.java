@@ -88,7 +88,6 @@ public class UniversityServiceTest {
         assertEquals(result, universityDTOPage);
     }
 
-
     @Test
     @DisplayName(value = "Should create university")
     void shouldCreateUniversity() {

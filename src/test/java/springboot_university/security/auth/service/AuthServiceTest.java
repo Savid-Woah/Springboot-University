@@ -1,5 +1,6 @@
 package springboot_university.security.auth.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,16 +31,14 @@ public class AuthServiceTest {
 
     @Mock
     private JwtService jwtService;
-
     @Mock
     private UserService userService;
-
+    @Mock
+    private CookieService cookieService;
     @Mock
     private StudentService studentService;
-
     @Mock
     private UniversityService universityService;
-
     @Mock
     private AuthenticationManager authenticationManager;
 
@@ -86,7 +85,7 @@ public class AuthServiceTest {
         when(jwtService.generateToken(user)).thenReturn(jwt);
 
         // and "service called"
-        String result = authService.login(loginRequest);
+        String result = authService.login(loginRequest, any(HttpServletResponse.class));
 
         // then "expect the following"
         assertEquals(result, jwt);

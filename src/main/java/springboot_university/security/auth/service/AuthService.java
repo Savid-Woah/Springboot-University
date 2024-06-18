@@ -1,5 +1,6 @@
 package springboot_university.security.auth.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +22,6 @@ import springboot_university.university.request.UniversityRequest;
 import springboot_university.university.service.UniversityService;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static springboot_university.exception.MsgCode.OOPS_ERROR;
@@ -36,11 +36,12 @@ public class AuthService {
 
     private final JwtService jwtService;
     private final UserService userService;
+    private final CookieService cookieService;
     private final StudentService studentService;
     private final UniversityService universityService;
     private final AuthenticationManager authenticationManager;
 
-    public String login(LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest, HttpServletResponse httpServletResponse) {
 
         try {
 
@@ -50,6 +51,7 @@ public class AuthService {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
             authenticationManager.authenticate(authToken);
             String jwt = jwtService.generateToken(user);
+            cookieService.addCookie(httpServletResponse, "jwt", jwt, -1);
             jwtService.saveUserToken(user, jwt);
             return jwt;
 

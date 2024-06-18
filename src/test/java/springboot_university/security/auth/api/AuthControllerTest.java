@@ -2,6 +2,8 @@ package springboot_university.security.auth.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import springboot_university.exception.MessageTextResolver;
 import springboot_university.security.auth.request.LoginRequest;
 import springboot_university.security.auth.request.RegisterStudentRequest;
@@ -30,6 +35,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -86,7 +92,7 @@ public class AuthControllerTest {
         String token = anyString();
 
         // when "mocked behaviour"
-        when(authService.login(loginRequest)).thenReturn(token);
+        when(authService.login(loginRequest, any(HttpServletResponse.class))).thenReturn(token);
 
         // and "endpoint hit" then "expect the following"
         mockMvc.perform(post("/university/api/v1/auth/login")

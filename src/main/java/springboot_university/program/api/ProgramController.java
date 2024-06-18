@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import springboot_university.program.dto.ProgramDTO;
 import springboot_university.program.request.ProgramRequest;
 import springboot_university.program.service.ProgramService;
+import springboot_university.security.annotation.WithRateLimitProtection;
 
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class ProgramController {
     private final ProgramService programService;
 
     @GetMapping(path = "{page-number}/{page-size}")
+    @WithRateLimitProtection
     public Page<ProgramDTO> getAllPrograms(
             @PathVariable("page-number") Integer pageNumber,
             @PathVariable("page-size") Integer pageSize
@@ -29,6 +31,7 @@ public class ProgramController {
     }
 
     @PostMapping(path = "compare-age-average/{program-id}/{university-id}")
+    @WithRateLimitProtection
     public String compareProgramAndUniversityAgeAverage(
             @PathVariable("program-id") UUID programId,
             @PathVariable("university-id") UUID universityId
@@ -37,6 +40,7 @@ public class ProgramController {
     }
 
     @PostMapping
+    @WithRateLimitProtection
     public Map<String, Object> addProgram(@Validated @RequestBody ProgramRequest programRequest) {
         return programService.addProgram(programRequest);
     }

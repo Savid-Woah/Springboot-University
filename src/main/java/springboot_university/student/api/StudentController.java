@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springboot_university.course.request.EnrollRequest;
+import springboot_university.security.annotation.WithRateLimitProtection;
 import springboot_university.student.service.StudentService;
 
 @RestController
@@ -17,6 +18,7 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping(path = "enroll-in-course")
+    @WithRateLimitProtection
     public String enrollInCourse(@Validated @RequestBody EnrollRequest enrollRequest) {
         return studentService.enrollInCourse(enrollRequest);
     }

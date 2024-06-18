@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
+import springboot_university.security.auth.service.CookieService;
 import springboot_university.security.token.model.Token;
 import springboot_university.security.token.repository.TokenRepository;
 
@@ -14,6 +15,7 @@ import springboot_university.security.token.repository.TokenRepository;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
+    private final CookieService cookieService;
     private final TokenRepository tokenRepository;
 
     @Override
@@ -41,5 +43,7 @@ public class LogoutService implements LogoutHandler {
             storedToken.setExpired(true);
             tokenRepository.save(storedToken);
         }
+
+        cookieService.expireCookie(response, "jwt");
     }
 }
