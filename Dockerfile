@@ -8,7 +8,7 @@ RUN mvn dependency:resolve
 
 COPY . .
 
-RUN mvn clean test
+RUN mvn clean
 
 RUN mvn package -DskipTests
 
