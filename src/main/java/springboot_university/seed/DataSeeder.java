@@ -3,7 +3,7 @@ package springboot_university.seed;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import springboot_university.course.model.Course;
 import springboot_university.course.repository.CourseRepository;
@@ -31,7 +31,7 @@ public class DataSeeder implements CommandLineRunner {
     private final CourseRepository courseRepository;
     private final ProgramRepository programRepository;
     private final StudentRepository studentRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final UniversityRepository universityRepository;
 
     @Override
